@@ -9,6 +9,7 @@ const {
   MAP_ENDPOINT,
   TARGET_CITY,
   PORT
+// eslint-disable-next-line no-undef
 } = process.env;
 
 const appId = APPID || '6a43d8562acdd6b0879d60232bd769e0';
@@ -27,17 +28,8 @@ const fetchWeather = async () => {
   return response ? response.json() : {};
 };
 
-const fetchWeatherByCoordinates = async (lat, lon) => {
-  const endpoint = `${mapURI}/forecast?lat=${lat}&lon=${lon}&appid=${appId}&`;
-  console.log(endpoint);
-  const response = await fetch(endpoint);
-  return response ? response.json() : {};
-};
-
-router.get('/api/weather/:lat/:lon', async ctx => {
-  const { lat, lon } = ctx.params;
-  //const weatherData = await fetchWeather();
-  const weatherData = await fetchWeatherByCoordinates(lat, lon);
+router.get('/api/weather', async ctx => {
+  const weatherData = await fetchWeather();
   console.log(weatherData);
   ctx.type = 'application/json; charset=utf-8';
   ctx.body = weatherData;

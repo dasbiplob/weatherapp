@@ -1,17 +1,24 @@
+// eslint-disable-next-line no-undef
 const { HotModuleReplacementPlugin, NoEmitOnErrorsPlugin, DefinePlugin } = require('webpack');
+// eslint-disable-next-line no-undef
 const path = require('path');
+// eslint-disable-next-line no-undef
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
+// eslint-disable-next-line no-undef
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const GLOBALS = {
+  // eslint-disable-next-line no-undef
   'process.env.ENDPOINT': JSON.stringify(process.env.ENDPOINT || 'http://0.0.0.0:9000/api'),
 };
 
+// eslint-disable-next-line no-undef
 module.exports = {
   mode: 'development',
   cache: true,
   devtool: 'cheap-module-eval-source-map',
   entry: {
+    // eslint-disable-next-line no-undef
     main: ['@babel/polyfill', path.join(__dirname, 'src/index.jsx')],
   },
   resolve: {
@@ -25,7 +32,9 @@ module.exports = {
     contentBase: 'src/public',
     historyApiFallback: true,
     disableHostCheck: true,
+    // eslint-disable-next-line no-undef
     host: process.env.HOST || '0.0.0.0',
+    // eslint-disable-next-line no-undef
     port: process.env.PORT || 8000,
   },
   output: {
@@ -36,6 +45,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        // eslint-disable-next-line no-undef
         include: path.resolve(__dirname, 'src'),
         loader: 'babel-loader',
         query: {
