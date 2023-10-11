@@ -1,42 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-// eslint-disable-next-line no-undef
-const baseURL = process.env.ENDPOINT || 'http://0.0.0.0:9000/api';
-
-const getWeatherFromApi = async () => {
-  try {
-    const response = await fetch(`${baseURL}/weather`);
-    const data = await response.json();
-    console.log(data); // Check if the data is as expected
-    return data.icon ? data.icon.slice(0, -1) : null;
-  } catch (error) {
-    console.error(error);
-  }
-
-  return {};
-};
-
-class Weather extends React.Component {
+class Weather extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       icon: "",
+      latitude: null,
+      longitude: null,
     };
   }
 
   async componentDidMount() {
-    const weather = await getWeatherFromApi();
-    console.log('Weather Data:', weather);
-    if (weather !== null) {
-      this.setState({ weather });
+    // Use Geolocation API to get user's location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.handleLocationSuccess, this.handleLocationError);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
     }
   }
 
+  handleLocationSuccess = (position) => {
+    const { latitude, longitude } = position.coords;
+    this.setState({ latitude, longitude }, this.getWeatherData);
+  }
+
+  handleLocationError = (error) => {
+    console.error(`Error getting location: ${error.message}`);
+    // Fallback to default location if geolocation fails
+    this.getWeatherData();
+  }
+
+  getWeatherData = async () => {
+    const { latitude, longitude } = this.state;
+    if (!latitude || !longitude) {
+      console.error('Latitude and/or longitude not available. Using default location.');
+      this.setState({ icon: 'default-icon' });
+      return;
+    }
+  
+    const baseURL = process.env.ENDPOINT || 'http://0.0.0.0:9000/api';
+  
+    try {
+      //const response = await fetch(`${baseURL}/forecast?lat=${latitude}&lon=${longitude}`);
+      const response = await fetch(`${baseURL}/weather?lat=${latitude}&lon=${longitude}`);
+      const data = await response.json();
+      console.log(data);
+      if (data && data.icon) {
+        this.setState({ icon: data.icon.slice(0, -1) });
+      } else {
+        console.error('Invalid data received from backend:', data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
 
   render() {
-    console.log('Current icon state:', this.state.icon)
     const { icon } = this.state;
 
     return (
@@ -48,7 +70,6 @@ class Weather extends React.Component {
   }
 }
 
-// eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
   <Weather />,
   document.getElementById('app')

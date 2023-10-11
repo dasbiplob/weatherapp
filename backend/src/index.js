@@ -22,15 +22,18 @@ const router = new Router();
 
 app.use(cors());
 
-const fetchWeather = async () => {
-  const endpoint = `${mapURI}/forecast?q=${targetCity}&appid=${appId}&`;
+const fetchWeather = async (lat, lon) => {
+  //const endpoint = `${mapURI}/forecast?q=${targetCity}&appid=${appId}&`;
+  const endpoint = `${mapURI}/forecast?lat=${lat}&lon=${lon}&appid=${appId}&`;
+  console.log('Endpoint:', endpoint);
   const response = await fetch(endpoint);
   return response ? response.json() : {};
 };
 
 router.get('/api/weather', async ctx => {
-  const weatherData = await fetchWeather();
-  console.log(weatherData);
+  const { lat, lon } = ctx.query; // Retrieve latitude and longitude from query parameters
+  const weatherData = await fetchWeather(lat, lon);
+  console.log(weatherData)
   ctx.type = 'application/json; charset=utf-8';
   ctx.body = weatherData;
 });

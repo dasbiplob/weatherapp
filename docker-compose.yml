@@ -1,24 +1,12 @@
-version: '3'
-
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: backend/.
     ports:
       - "9000:9000"
-    volumes:
-      - ./backend:/app
-    command: npm start
-    container_name: my_backend_container  # Add this line
+    container_name: my_backend_container
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    build: frontend/.
     ports:
       - "8000:8000"
-    volumes:
-      - ./frontend:/app
-    command: npm start
-    container_name: my_frontend_container  # Add this line
+    container_name: my_frontend_container
