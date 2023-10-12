@@ -50,8 +50,9 @@ class Weather extends Component {
       const response = await fetch(`${baseURL}/weather?lat=${latitude}&lon=${longitude}`);
       const data = await response.json();
       console.log('Response Data:',data);
-      if (data && data.icon) {
-        this.setState({ icon: data.icon.slice(0, -1) });
+      if (Array.isArray(data.list) && data.list.length > 0) {
+        const icon = data.list[0].weather[0].icon;
+        this.setState({ icon: icon.slice(0, -1) });
       } else {
         this.setState({ icon: 'default-icon' });
         console.error('Invalid data received from backend:', data);
@@ -68,8 +69,7 @@ class Weather extends Component {
 
     return (
       <div className="icon">
-        { icon ? <img src={`./public/img/${icon}.svg`} alt="Weather Icon" /> : <p>Icon not found</p> }
-        <p>Temporary Content</p>
+        { icon ? <img src={`../img/${icon}.svg`} alt="Weather Icon" /> : <p>Icon not found</p> }
       </div>
     );
   }
