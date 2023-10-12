@@ -68,7 +68,7 @@ class Weather extends Component {
 
     return (
       <div className="icon">
-        { icon ? <img src={`./img/${icon}.svg`} alt="Weather Icon" /> : <p>Icon not found</p> }
+        { icon ? <img src={`./public/img/${icon}.svg`} alt="Weather Icon" /> : <p>Icon not found</p> }
         <p>Temporary Content</p>
       </div>
     );
