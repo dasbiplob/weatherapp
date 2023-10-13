@@ -2,7 +2,7 @@
 Library    SeleniumLibrary
 
 *** Variables ***
-${BROWSER}    chrome
+${BROWSER}    firefox
 ${URL}        http://localhost:8000
 
 *** Test Cases ***
@@ -14,8 +14,7 @@ Open Weather Page
 
 *** Keywords ***
 Open Website
-    Create webdriver....Chrome
-    Go To...............${url}
+    Open Browser    ${URL}    ${BROWSER}
 Location Should Be
     [Arguments]    ${url}
     Location Should Be    ${url}
