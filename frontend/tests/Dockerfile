@@ -17,6 +17,10 @@ RUN python3 -m venv /app/venv
 #RUN pip3 install --no-cache-dir robotframework robotframework-seleniumlibrary
 RUN /app/venv/bin/pip install --no-cache-dir robotframework robotframework-seleniumlibrary
 
+# Install ChromeDriver
+RUN apt-get update && apt-get install -y chromium-driver
+
+
 # Copy your test files into the container
 COPY . /app/tests
 

@@ -1,5 +1,5 @@
 *** Settings ***
-Library    SeleniumLibrary
+Library    SeleniumLibrary  executable_path=/usr/bin/chromium
 
 *** Variables ***
 ${BROWSER}    Chrome
