@@ -1,0 +1,36 @@
+name: Build_And_Test
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name as needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Replace with the desired Python version
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Adjust as needed
+
+      - name: Build and Test
+        run: |
+          robot tests/frontend_tests.robot  # Adjust the command as needed
+
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: /app/output.xml  # Adjust the path to your test results
+
+      # Add any additional steps for deployment or notifications here
