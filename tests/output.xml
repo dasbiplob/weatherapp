@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.11.5 on darwin)" generated="20231013 23:59:47.764" rpa="false" schemaversion="4">
+<suite id="s1" name="Frontend Tests" source="/Users/biplobdas/git/EfiCode_Assignment/github/weatherapp/tests/frontend_tests.robot">
+<test id="s1-t1" name="Open Weather Page" line="9">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20231013 23:59:47.868" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8000'.</msg>
+<status status="PASS" starttime="20231013 23:59:47.867" endtime="20231013 23:59:50.670"/>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<arg>What's the weather?</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<msg timestamp="20231013 23:59:50.679" level="INFO">Page title is 'What's the weather?'.</msg>
+<status status="PASS" starttime="20231013 23:59:50.671" endtime="20231013 23:59:50.679"/>
+</kw>
+<kw name="Close Browser" library="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20231013 23:59:50.679" endtime="20231013 23:59:52.213"/>
+</kw>
+<status status="PASS" starttime="20231013 23:59:47.867" endtime="20231013 23:59:52.213"/>
+</test>
+<status status="PASS" starttime="20231013 23:59:47.765" endtime="20231013 23:59:52.213"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Frontend Tests">Frontend Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
