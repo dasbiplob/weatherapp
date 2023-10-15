@@ -19,10 +19,6 @@ RUN mv geckodriver /usr/local/bin/
 # Install Robot Framework and SeleniumLibrary
 RUN /app/venv/bin/pip install --no-cache-dir robotframework robotframework-seleniumlibrary
 
-# Install GeckoDriver
-COPY driver/geckodriver /usr/local/bin/
-
-
 # Switch back to non-root user
 USER seluser
 

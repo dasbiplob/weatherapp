@@ -1,0 +1,12 @@
+services:
+  backend:
+    container_name: backend_weatherapp
+    build: ./backend
+    ports:
+      - "9000:9000"
+
+  frontend:
+    container_name: frontend_weatherapp
+    build: ./frontend
+    ports:
+      - "8000:8000"
