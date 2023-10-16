@@ -28,8 +28,8 @@ gitHub Repository: https://github.com/dasbiplob/weatherapp/
 ### Testing
 ## Mocha Test Cases
   To run Mocha test cases, go to the backend folder and run:
-  npm install
-  npm test
+  1. npm install
+  2. npm test
 
 ## Robot Framework Test Cases
   To run Robot Framework test cases, navigate to the test folder and run the following commands:
