@@ -4,6 +4,7 @@ const Router = require('koa-router');
 const fetch = require('node-fetch');
 const cors = require('kcors');
 
+// Environment variables
 const {
   APPID,
   MAP_ENDPOINT,
@@ -11,6 +12,8 @@ const {
   PORT
 // eslint-disable-next-line no-undef
 } = process.env;
+
+// Default values in case environment variables are not provided
 
 const appId = APPID || '6a43d8562acdd6b0879d60232bd769e0';
 const mapURI = MAP_ENDPOINT || 'http://api.openweathermap.org/data/2.5';
@@ -22,6 +25,7 @@ const router = new Router();
 
 app.use(cors());
 
+// Function to fetch weather data based on latitude and longitude
 const fetchWeather = async (lat, lon) => {
   //const endpoint = `${mapURI}/forecast?q=${targetCity}&appid=${appId}&`;
   const endpoint = `${mapURI}/forecast?lat=${lat}&lon=${lon}&appid=${appId}&`;
@@ -30,6 +34,7 @@ const fetchWeather = async (lat, lon) => {
   return response ? response.json() : {};
 };
 
+// Route handler for getting weather data
 router.get('/api/weather', async ctx => {
   const { lat, lon } = ctx.query; // Retrieve latitude and longitude from query parameters
   const weatherData = await fetchWeather(lat, lon);
@@ -41,6 +46,7 @@ router.get('/api/weather', async ctx => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
+// Start the server
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
